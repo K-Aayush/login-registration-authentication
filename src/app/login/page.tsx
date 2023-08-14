@@ -1,12 +1,20 @@
+'use client'
+
 import type { Metadata } from 'next'
+import style from './page.module.css'
 import Image from 'next/image'
 import Link from 'next/link'
+import { HiAtSymbol, HiFingerPrint } from "react-icons/hi";
+import { useState } from 'react';
 
 export const metadata: Metadata = {
     title: 'Login Page',
 }
 
 const Login = () => {
+
+    const [show, setShow] = useState(false);
+
     return (
         <div className='min-h-screen bg-blue-500'>
             <div className='container mx-auto md:py-30 lg:py-20 py-20 md:transition-all lg:transition-all'>
@@ -29,22 +37,27 @@ const Login = () => {
                        
                         <form action="#" className='mt-4'>
                             <div className='flex flex-col gap-2 md:gap-2 lg:gap-4'>
-                                <div className='border rounded-xl relative'>
+                                <div className='flex border rounded-xl relative'>
                                     <input
-                                        className='w-full py-4 px-6 border rounded-xl bg-slate-50 focus:outline-none focus:border-none'
+                                        className={`${style.input_text} w-full py-4 px-6 border rounded-xl bg-slate-50 focus:outline-none focus:border-none`}
                                         type="email"
                                         name='email'
                                         placeholder='Email'
                                     />
+                                    <span className='icon absolute h-full right-0 top-0 flex items-center px-4'>
+                                        <HiAtSymbol size={25} />
+                                    </span>
                                 </div>
                                 <div className='border rounded-xl relative mb-4'>
                                     <input
-                                        className='w-full py-4 px-6 border rounded-xl bg-slate-50 focus:outline-none focus:border-none'
-                                        type="password"
+                                        className={`${style.input_text} w-full py-4 px-6 border rounded-xl bg-slate-50 focus:outline-none focus:border-none`}
+                                        type={`${show ? "text" : "password"}`}
                                         name='password'
                                         placeholder='Password'
                                     />
-
+                                    <span className='absolute h-full right-0 top-0 flex items-center px-4'  onClick={() => setShow(!show)}>
+                                        <HiFingerPrint size={25} />
+                                    </span>
                                 </div>
                             </div>
 
@@ -82,87 +95,6 @@ const Login = () => {
                 </div>
             </div>
         </div>
-        // <div className='flex min-h-screen bg-blue-400'>
-        //     <div className='lg:m-auto md:my-5 bg-slate-50 rounded-md w-3/5 h-4/5 grid lg:grid-cols-2'>
-
-        //         {/* image div */}
-        //         <div className='relative w-full'>
-        //             <div className='aspect-square'>
-        //             <Image
-        //                 className='object-cover'
-        //                 src='/women-headset.jpg'
-        //                 alt=''
-        //                 layout='fill'
-        //             />
-        //             </div>
-        //             <div className='absolute mx-2 w-full text-start top-3 z-50'>
-        //                 <strong className='text-gradient-to-r from-blue-500 to text-indigo-500 font-bold lg:text-xl'>Welcome to Login Page.</strong>
-        //             </div>
-        //         </div>
-
-        //         {/* form div */}
-        //          <div className='flex flex-col justify-evenly'>
-        //             <div className='text-center lg:py-10 md:py-5 py-2'>
-        //                 <section className='lg:w-10/12 md:w-10/12 w-11/12 mx-auto flex flex-col gap-10'>
-        // <div>
-        //     <h1 className='text-gray-800 text-md lg:text-xl lg:font-extrabold'>Login to your account</h1>
-        // </div>
-
-        //                     <form action="#" className='flex flex-col gap-5'>
-        //                         <div className='flex border rounded-xl relative'>
-        // <input
-        //     className='w-full py-4 px-6 border rounded-xl bg-slate-50 focus:outline-none focus:border-none'
-        //     type="email"
-        //     name='email'
-        //     placeholder='Email'
-        // />
-        //                         </div>
-
-        //                         <div className='flex border rounded-xl relative'>
-        //                             <input
-        //                                 className='w-full py-4 px-6 border rounded-xl bg-slate-50 focus:outline-none focus:border-none'
-        //                                 type="password"
-        //                                 name='password'
-        //                                 placeholder='Password'
-        //                             />
-        //                         </div>
-
-        //                         <div className=''>
-        // <button
-        //     className='w-full bg-gradient-to-r from-blue-500 to bg-indigo-500 py-3 text-gray-50 text-lg rounded-xl hover:bg-gradient-to-r hover:from-gray-50 hover:to-bg-gray-100 hover:bg-gray-100 hover:text-gray-700 hover:border hover:border-slate-500'
-        //     type='submit'
-        // >
-        //     Login
-        // </button>
-        //                         </div>
-        //                         <div>
-        // <button 
-        // className='w-full flex justify-center py-3 gap-2 border hover:bg-gray-200 rounded-xl'
-        // type='button'
-        // >
-        //     Sign In With Google <Image src='/googlelogo.png' alt='' width={24} height={24}/>
-        // </button>
-        //                         </div>
-        //                         <div>
-        //                             <button 
-        //                             className='w-full flex justify-center py-3 gap-2 border hover:bg-gray-200 rounded-xl'
-        //                             type='button'
-        //                             >
-        //                                 Signin With Github <Image src='/githublogo.png' alt='' width={24} height={24}/>
-        //                             </button>
-        //                         </div>
-
-        //                         <p className='text-center text-gray-400'>
-        //                             Don`t have an account?
-        //                             <Link className='text-indigo-700' href={'/register'}> Sign Up</Link>
-        //                         </p>
-
-        //                     </form>
-        //                 </section>
-        //             </div> 
-        //         </div>
-        //     </div>
-        // </div>
     )
 }
 
