@@ -6,14 +6,22 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { HiAtSymbol, HiFingerPrint } from "react-icons/hi";
 import { useState } from 'react';
+import { signIn, signOut } from 'next-auth/react'
 
 export const metadata: Metadata = {
     title: 'Login Page',
 }
 
 const Login = () => {
-
     const [show, setShow] = useState(false);
+
+  async function handleGooglesignIn() {
+    await signIn('google', 
+    {callbackUrl: "http://localhost:3000"});
+  }
+
+  
+   
 
     return (
         <div className='min-h-screen bg-blue-500'>
@@ -72,6 +80,7 @@ const Login = () => {
                                 <button
                                     className='w-full flex justify-center py-3 gap-2 border hover:bg-gray-200 rounded-xl'
                                     type='button'
+                                    onClick={handleGooglesignIn}
                                 >
                                     Sign In With Google <Image src='/googlelogo.png' alt='' width={24} height={24} />
                                 </button>

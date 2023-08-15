@@ -2,7 +2,7 @@
 
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useSession, signIn, signOut } from 'next-auth/react'
 
 export const metadata: Metadata = {
   title: 'Home Page',
@@ -10,10 +10,19 @@ export const metadata: Metadata = {
 
 export default function Home() {
 
-  const [session, setSession] = useState(false)
+  const { data:session, status } = useSession()
+
+  if (status === 'loading') {
+    return (
+      <div className="container mx-auto py-20 text-center">
+        <h3 className='text-4xl font-bold'>Loading...</h3>
+      </div>
+    )
+  }
+
   return (
     <div>
-      {session ? User() : Guest()}
+      {session ? User({session}) : Guest()}
     </div>
   )
 }
@@ -38,18 +47,18 @@ function Guest() {
 }
 
 //Authorized User
-function User() {
+function User({ session } : any) {
   return (
     <main className="container mx-auto py-20 text-center">
       <h3 className='text-4xl font-bold'>Authorized User HomePage</h3>
 
-      <div>
-        <h5>Unknown</h5>
-        <h5>Unknown</h5>
+      <div className='gap-2 my-4'>
+        <h5>{session.user.name}</h5>
+        <h5>{session.user.email}</h5>
       </div>
 
       <div className='flex justify-center'>
-        <button className='bg-gradient-to-r from-blue-500 to bg-indigo-500 py-2 px-3 text-gray-50 text-lg rounded-2xl'>Sign Out</button>
+        <button onClick={() => signOut()} className='bg-gradient-to-r from-blue-500 to bg-indigo-500 py-2 px-3 text-gray-50 text-lg rounded-2xl'>Sign Out</button>
       </div>
 
       <div className='flext justify-center mt-5'>
