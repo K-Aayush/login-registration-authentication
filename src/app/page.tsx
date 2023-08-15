@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function Home() {
 
-  const [session, setSession] = useState(true)
+  const [session, setSession] = useState(false)
   return (
     <div>
       {session ? User() : Guest()}
